@@ -42,10 +42,11 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         mFragments[1] = mCustomFragment;
         mFragments[2] = mDownloadTingFragment;
         mFragments[3] = mPersonalFragment;
-        for (Fragment  fragmet: mFragments) {
-        transaction.add(R.id.main_fragment_container,mDiscoveryFragment);
-
+        for (Fragment  fragment: mFragments) {
+        transaction.add(R.id.main_fragment_container,fragment);
+         transaction.hide(fragment);
         }
+        transaction.show(mFragments[0]);
         transaction.commit();
         RadioGroup tabBar = (RadioGroup) findViewById(R.id.main_tab_bar);
         if (tabBar != null) {
@@ -79,9 +80,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 break;
         }
         if (fragment != null) {
-            transaction.show(fragment);
-        }
         transaction.commit();
+        }
     }
 }
 

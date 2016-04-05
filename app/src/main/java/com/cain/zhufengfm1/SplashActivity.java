@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class SplashActivity extends AppCompatActivity implements Runnable{
+public class SplashActivity extends AppCompatActivity implements Runnable {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,15 +29,15 @@ public class SplashActivity extends AppCompatActivity implements Runnable{
         SharedPreferences sp = getSharedPreferences(Constants.SP_NAME, MODE_PRIVATE);
 //        boolean shown = sp.getBoolean("tutorial.shown",false);
         //获取上一次显示教程的版本号
-        int vc = sp.getInt(Constants.SP_KEY_TUTORIAL_SHOWN,0);
+        int vc = sp.getInt(Constants.SP_KEY_TUTORIAL_SHOWN, 0);
 
         //如果和当前程序版本号不一致
 
-        if (vc!=BuildConfig.VERSION_CODE){
+        if (vc != BuildConfig.VERSION_CODE) {
             startActivity(new Intent(this, TutorialActivity.class));
-        }else{
+        } else {
 
-        startActivity(new Intent(this, TutorialActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
         }
         finish();
     }
