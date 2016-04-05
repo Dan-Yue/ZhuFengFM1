@@ -9,11 +9,11 @@ import java.util.List;
 /**
  * Created by Administrator on 16-4-5.
  */
-public class DiscoveryViewPagerAdapter extends PagerAdapter{
+public class ViewPagerAdapter extends PagerAdapter{
     private List<View> mViewList;
     private List<String> mTitleList;//页卡标题集合
 
-    public DiscoveryViewPagerAdapter(List<View> viewList, List<String> titleList) {
+    public ViewPagerAdapter(List<View> viewList, List<String> titleList) {
         mViewList = viewList;
         mTitleList = titleList;
     }

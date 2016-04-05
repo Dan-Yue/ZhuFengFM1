@@ -1,13 +1,23 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.cain.zhufengfm1.fragment.DownloadTingFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="com.cain.zhufengfm1.fragment.CustomFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!-- TabLayout 在 Design-->
+    <android.support.design.widget.TabLayout
+        android:id="@+id/download_ting_tab_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="下载听" />
+        android:layout_height="wrap_content"
+        app:tabIndicatorColor="#FF0000"
+        app:tabSelectedTextColor="#FF0000"
+        app:tabTextColor="#808080"/>
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/download_ting_tab_content"/>
 
-</FrameLayout>
+</LinearLayout>

@@ -19,7 +19,8 @@
         <RadioButton
             android:id="@+id/main_tab_item_discovery"
             style="@style/MainTabItem"
-            android:text="发现"/>
+            android:text="发现"
+            android:checked="true"/>
         <RadioButton
             android:id="@+id/main_tab_item_custom"
             style="@style/MainTabItem"

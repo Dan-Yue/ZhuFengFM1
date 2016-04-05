@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cain.zhufengfm1.R;
-import com.cain.zhufengfm1.adapter.DiscoveryViewPagerAdapter;
+import com.cain.zhufengfm1.adapter.ViewPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DiscoveryFragment extends Fragment implements TabLayout.OnTabSelectedListener{
+public class DiscoveryFragment extends Fragment{
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
 
@@ -71,25 +71,10 @@ public class DiscoveryFragment extends Fragment implements TabLayout.OnTabSelect
         mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(3)));
         mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(4)));
 
-        DiscoveryViewPagerAdapter mAdapter = new DiscoveryViewPagerAdapter(mViewList,mTitleList);
+        ViewPagerAdapter mAdapter = new ViewPagerAdapter(mViewList,mTitleList);
         mViewPager.setAdapter(mAdapter);//给ViewPager设置适配器
         mTabLayout.setupWithViewPager(mViewPager);//将TabLayout和ViewPager关联起来。
         mTabLayout.setTabsFromPagerAdapter(mAdapter);//给Tabs设置适配器
         return view;
-    }
-
-    @Override
-    public void onTabSelected(TabLayout.Tab tab) {
-
-    }
-
-    @Override
-    public void onTabUnselected(TabLayout.Tab tab) {
-
-    }
-
-    @Override
-    public void onTabReselected(TabLayout.Tab tab) {
-
     }
 }
