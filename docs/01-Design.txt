@@ -1,0 +1,53 @@
+1.都有哪些类
+     最终就是组织结构
+
+     1).可以按照界面去划分
+
+         A.启动扉页 SplashActivity
+         B.引导页 TutorialActivity
+         C.主页面框架 MainActivity
+
+             发现 DiscoverFragment
+
+                ViewPager 5个小的Fragment
+
+                    推荐 DiscoveryRecommendFragment
+                    分类 DiscoveryCategoryFragment
+                    广播 DiscoveryRadioFragment
+                    榜单 DiscoveryRatingFragment
+                    主播 DiscoveryAnchorFragment
+
+             定制听 CustomFragment
+
+             下载听 DownloadTingFragment
+
+             我 PersonalFragment
+
+         D.TODO:确认其余的网络、任务、解析、存储
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
