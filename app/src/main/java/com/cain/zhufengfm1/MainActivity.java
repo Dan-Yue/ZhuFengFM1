@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 byte[] data = HttpUtils.doGet("http://mobile.ximalaya.com/mobile/discovery/v1/recommends?channel=and-f6&device=android&includeActivity=true&includeSpecial=true&scale=2&version=4.1.7.1");
                 if(data != null){
                     String test = new String(data);
-                    //TODO:log日志
                     Log.d(TAG, "GET "+test);
                 }
             }

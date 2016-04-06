@@ -51,6 +51,7 @@ public final class StreamUtil {
                     os.flush();
                     size += len;
                 }
+                //TODO:循环读写流合并写法可能有错
             } catch (IOException e) {
                 size = -1;
             }
