@@ -26,7 +26,7 @@ public class RecommendAlbumInfo {
     private String title;
     private String tags;
     private long tracks;
-    private int playsCounts;
+    private long playsCounts;
     private int isFinished;
     private long trackId;
     private String trackTitle;
@@ -38,8 +38,12 @@ public class RecommendAlbumInfo {
             title = json.getString("title");
             tags = json.getString("tags");
             tracks = json.getLong("tracks");
-//            playsCounts = json.getLong("playCounts");
-            //TODO:解析
+            playsCounts = json.getLong("playCounts");
+            isFinished = json.getInt("isFinished");
+            trackId = json.getLong("trackId");
+            trackTitle = json.getString("trackTitle");
+
+            //TODO:检查解析
         }
     }
     public long getAlbumId() {
@@ -62,7 +66,7 @@ public class RecommendAlbumInfo {
         return tracks;
     }
 
-    public int getPlaysCounts() {
+    public long getPlaysCounts() {
         return playsCounts;
     }
 

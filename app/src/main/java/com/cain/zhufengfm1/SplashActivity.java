@@ -24,8 +24,6 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
             e.printStackTrace();
         }
 
-        //TODO:检查是否显示教程页
-
         SharedPreferences sp = getSharedPreferences(Constants.SP_NAME, MODE_PRIVATE);
 //        boolean shown = sp.getBoolean("tutorial.shown",false);
         //获取上一次显示教程的版本号

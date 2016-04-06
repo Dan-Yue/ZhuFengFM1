@@ -6,7 +6,6 @@
     android:orientation="vertical"
     tools:context="com.cain.zhufengfm1.fragment.CustomFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <!-- TabLayout 在 Design-->
     <android.support.design.widget.TabLayout
         android:id="@+id/custom_tab_bar"

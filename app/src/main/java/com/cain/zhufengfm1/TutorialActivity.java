@@ -13,7 +13,6 @@ public class TutorialActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial);
 
-        //TODO:更新教程页显示的设置，下一次不再显示
         SharedPreferences sp = getSharedPreferences(Constants.SP_NAME, MODE_PRIVATE);
         SharedPreferences.Editor edit = sp.edit();
         edit.putInt(Constants.SP_KEY_TUTORIAL_SHOWN,BuildConfig.VERSION_CODE);

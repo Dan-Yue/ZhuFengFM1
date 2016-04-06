@@ -72,6 +72,7 @@ public class DiscoveryRecommendFragment extends BaseFragment implements TaskCall
                         try {
                             JSONObject object = jsonObject.getJSONObject("editorRecommendAlbums");
                             RecommendAlbums albums = new RecommendAlbums();
+                            //TODO:检查有误
                             albums.parseJson(object);
                         } catch (JSONException e) {
                             e.printStackTrace();
