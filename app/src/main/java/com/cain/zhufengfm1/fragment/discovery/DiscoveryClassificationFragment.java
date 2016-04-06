@@ -9,13 +9,23 @@ import android.view.ViewGroup;
 
 import com.cain.zhufengfm1.R;
 import com.cain.zhufengfm1.fragment.BaseFragment;
+import com.cain.zhufengfm1.task.DiscoveryClassificationTask;
+import com.cain.zhufengfm1.task.TaskCallback;
+import com.cain.zhufengfm1.task.TaskResult;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DiscoveryClassificationFragment extends BaseFragment {
+public class DiscoveryClassificationFragment extends BaseFragment implements TaskCallback{
 
     public DiscoveryClassificationFragment() {
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        DiscoveryClassificationTask task = new DiscoveryClassificationTask(this);
+        task.execute();
     }
 
     @Override
@@ -25,7 +35,11 @@ public class DiscoveryClassificationFragment extends BaseFragment {
 
     @Override
     public String getFragmentTitle() {
-        return "推荐";
+        return "分类";
     }
 
+    @Override
+    public void onTaskFinished(TaskResult result) {
+
+    }
 }

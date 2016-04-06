@@ -19,6 +19,32 @@ public class ClientAPI {
     private ClientAPI(){}
 
     /**
+     * 获取发现部分的分类
+     * 接口 12
+     * @return
+     */
+    public static String getDiscoveryCategories(){
+        //1.拼网址
+        String ret = null;
+        StringBuffer sb = new StringBuffer(API_POINT);
+        sb.append("/discovery/v1/categories");
+        sb.append("?device=android");
+        sb.append("&picVersion=10");
+        sb.append("&scale=2");
+        String url = sb.toString();
+        //2.请求
+        byte[] data = HttpUtils.doGet(url);
+        //3.返回结果
+        if (data != null) {
+            try {
+                ret = new String(data,"UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+        return ret;
+    }
+    /**
      * 获取发现部分的推荐内容
      * 对应接口：11
      * @return

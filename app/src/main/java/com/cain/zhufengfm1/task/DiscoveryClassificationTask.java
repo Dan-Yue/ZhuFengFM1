@@ -6,19 +6,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * 获取发现模块中，推荐栏目的数据
- * 接口 11
+ * Created by Administrator on 16-4-6.
  */
-public class DiscoveryRecommendTask extends BaseTask{
+public class DiscoveryClassificationTask extends BaseTask{
 
-    public DiscoveryRecommendTask(TaskCallback callback) {
+    public DiscoveryClassificationTask(TaskCallback callback) {
         super(callback);
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         TaskResult ret = new TaskResult();
-        String str = ClientAPI.getDiscoveryRecommends(true,true);
+        String str = ClientAPI.getDiscoveryCategories();
         if (str != null){
             try {
                 ret.data= new JSONObject(str);
