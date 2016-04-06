@@ -5,15 +5,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.RadioGroup;
 
 import com.cain.zhufengfm1.fragment.CustomFragment;
 import com.cain.zhufengfm1.fragment.DiscoveryFragment;
 import com.cain.zhufengfm1.fragment.DownloadTingFragment;
 import com.cain.zhufengfm1.fragment.PersonalFragment;
+import com.cain.zhufengfm1.utils.HttpUtils;
 
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
+    private static final String TAG = MainActivity.class.getSimpleName();
     private DiscoveryFragment mDiscoveryFragment;
     private CustomFragment mCustomFragment;
     private DownloadTingFragment mDownloadTingFragment;
@@ -52,6 +55,18 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         if (tabBar != null) {
             tabBar.setOnCheckedChangeListener(this);
         }
+
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+                byte[] data = HttpUtils.doGet("http://mobile.ximalaya.com/mobile/discovery/v1/recommends?channel=and-f6&device=android&includeActivity=true&includeSpecial=true&scale=2&version=4.1.7.1");
+                if(data != null){
+                    String test = new String(data);
+                    //TODO:log日志
+                    Log.d(TAG, "GET "+test);
+                }
+            }
+        };
     }
 
     @Override

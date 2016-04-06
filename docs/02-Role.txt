@@ -1,4 +1,34 @@
 1.可以使用常量来替换代码中的实际内容，避免写错
-2.控件的ID,按照页面，功能，来指定...
+2.控件的ID,按照页面，功能，来指定，如 页面_功能XXX 这种ID
 (android:.+)="(.+)"
 <item name="$1">$2</item>
+3.FragmentStatePagerAdapter在切换Fragment的时候，移除去的Fragment会被销毁
+4.FragmentPagerAdapter 在切换Fragment的时候。移除去的Fragment
+只会调用到onDestroyView
+5.在Fragment内部创建的FragmentPagerAdapter,构造方法中的FagmentPagerAdapter
+参数，getChildFragmentManager()创建
+6.带有返回值的方法，推荐只有一个return；
+7.现在服务器接口开发的时候，将网址定义成非常规则的，网址
+  看到就知道什么含义；GET ，POST，PUT请求都定义好对应的
+  这种方式通常
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
