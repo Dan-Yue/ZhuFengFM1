@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+<ImageView
+    android:id="@+id/item_chat_in_image"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:src="@mipmap/ic_launcher"/>
+    <TextView
+        android:id="@+id/item_chat_in_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/item_chat_in_image"
+        android:layout_toRightOf="@id/item_chat_in_image"
+        android:text="用户1"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_chat_in_content"
+        android:layout_below="@id/item_chat_in_from"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/chat_content_bg"
+        android:text="聊天内容"
+        android:layout_alignLeft="@id/item_chat_in_from"/>
+</RelativeLayout>

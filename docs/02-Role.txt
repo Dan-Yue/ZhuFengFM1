@@ -14,6 +14,20 @@
 8.代码的提取：重复代码的提取(消重);接口：用于控制类必须要包含的方法；
   抽象类：可以定义多个类公共的代码，也可以让每一个子类实现特有的方法；
 9.关于JSON解析，谁的数据，谁自己来解析;
+10.默认情况下，ListView，认为每一个Item的类型是相同的，所以每一个布局都能复用；
+如果Item的布局是不同的，这个时候，必须设置Adapter中两个方法，来检查Item的布局类型，
+如果不进行设置，那么布局就混乱了。
+错乱的原因是ConvertView被设置错了
+11.当BaseAdapter，重写getViewTypeCount()的方法，返回数值>1的时候那么ListView内部
+，就会自动创建出来视图缓冲区，实际上就是个数组
+ArrayList<View>[] buffer = new ArrayList<View>[getViewTypeCount];
+这个缓冲区就是用于存储可以复用的视图
+当Item从ListView可见区域移出去的时候
+就会检查item 对应 ViewType；就相当于数组的索引
+例如 返回0，就把View 添加到buffer[0].add(View)
+有Item需要加载和显示的时候，先检查这个Item的对应的视图类型ViewType
+例如 返回0，代表ListView需要从缓冲区buffer[0]来查找是否右视图
+    返回1，ListView就会先去buffer[1]查找视图
 
 
 

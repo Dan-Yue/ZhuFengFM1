@@ -222,7 +222,7 @@ URL:
 
 参数顺序
 
-18 专辑详情
+18 曲目(专辑)详情
 
 http://mobile.ximalaya.com/mobile/track/detail?device=android&trackId=8060450
 
