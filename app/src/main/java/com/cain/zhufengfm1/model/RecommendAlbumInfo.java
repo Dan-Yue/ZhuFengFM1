@@ -38,12 +38,10 @@ public class RecommendAlbumInfo {
             title = json.getString("title");
             tags = json.getString("tags");
             tracks = json.getLong("tracks");
-            playsCounts = json.getLong("playCounts");
+            playsCounts = json.getLong("playsCounts");
             isFinished = json.getInt("isFinished");
             trackId = json.getLong("trackId");
             trackTitle = json.getString("trackTitle");
-
-            //TODO:检查解析
         }
     }
     public long getAlbumId() {

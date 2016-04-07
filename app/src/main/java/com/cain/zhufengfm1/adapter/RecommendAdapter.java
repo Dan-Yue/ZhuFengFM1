@@ -1,12 +1,19 @@
 package com.cain.zhufengfm1.adapter;
 
 import android.content.Context;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.cain.zhufengfm1.R;
 import com.cain.zhufengfm1.model.DiscoveryRecommendItem;
+import com.cain.zhufengfm1.model.RecommendAlbumInfo;
 import com.cain.zhufengfm1.model.RecommendAlbums;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -14,10 +21,12 @@ import java.util.List;
  * Created by Administrator on 16-4-6.
  */
 public class RecommendAdapter extends BaseAdapter{
+    private static final String TAG = RecommendAdapter.class.getSimpleName();
     private Context mContext;
     private List<DiscoveryRecommendItem> mItems;
     //TODO:定制推荐适配器
     public RecommendAdapter(Context context, List<DiscoveryRecommendItem> items) {
+        super();
         mContext = context;
         mItems = items;
     }
@@ -33,7 +42,7 @@ public class RecommendAdapter extends BaseAdapter{
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return mItems.get(i);
     }
 
     @Override
@@ -56,18 +65,19 @@ public class RecommendAdapter extends BaseAdapter{
         //因为内部采用类型数值作为缓存区的数组下标
         int ret = 0;
         DiscoveryRecommendItem item = mItems.get(position);
+
+        Log.d(TAG, "getItemViewType: item instanceof RecommendAlbums"+(item instanceof RecommendAlbums));
+
         if (item instanceof RecommendAlbums){
             ret = 1;
         }
+        //TODO:参考代码mItems.get(position).getTypeId();
         return ret;
     }
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         View ret = null;
-
-
-
         DiscoveryRecommendItem item = mItems.get(i);
         if (item instanceof RecommendAlbums){
             //小编推荐的内容
@@ -77,7 +87,47 @@ public class RecommendAdapter extends BaseAdapter{
     }
     private View bindRecommendAlbums(int position,View convertView,ViewGroup parent){
         //!!!convertView 可以直接使用
-        return null;
+        if(convertView==null)
+        {
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_listview_hasmore_horizontal, parent, false);
+            ViewHolder holder = new ViewHolder();
+            holder.discovery_recommend_item_title = (TextView) convertView.findViewById(R.id.discovery_recommend_item_title);
+            holder.discovery_recommend_unit_image1 = (ImageView) convertView.findViewById(R.id.discovery_recommend_unit_image1);
+            holder.discovery_recommend_unit_title1 = (TextView) convertView.findViewById(R.id.discovery_recommend_unit_title1);
+            holder.discovery_recommend_unit_image2 = (ImageView) convertView.findViewById(R.id.discovery_recommend_unit_image2);
+            holder.discovery_recommend_unit_title2 = (TextView) convertView.findViewById(R.id.discovery_recommend_unit_title2);
+            holder.discovery_recommend_unit_image3 = (ImageView) convertView.findViewById(R.id.discovery_recommend_unit_image3);
+            holder.discovery_recommend_unit_title3 = (TextView) convertView.findViewById(R.id.discovery_recommend_unit_title3);
+            convertView.setTag(holder);
+        }
+        ViewHolder holder = (ViewHolder) convertView.getTag();
 
+        Log.d(TAG, "bindRecommendAlbums: holder"+holder);
+
+        DiscoveryRecommendItem item = mItems.get(position);
+        RecommendAlbums albums = new RecommendAlbums();
+        RecommendAlbumInfo info1 = albums.getAlbums().get(0);
+        RecommendAlbumInfo info2 = albums.getAlbums().get(1);
+        RecommendAlbumInfo info3 = albums.getAlbums().get(2);
+
+        holder.discovery_recommend_item_title.setText(item.getTitle());
+        holder.discovery_recommend_unit_title1.setText(info1.getTitle());
+        holder.discovery_recommend_unit_title2.setText(info2.getTitle());
+        holder.discovery_recommend_unit_title3.setText(info3.getTitle());
+
+        Picasso.with(mContext).load(info1.getCoverLarge()).into(holder.discovery_recommend_unit_image1);
+        Picasso.with(mContext).load(info2.getCoverLarge()).into(holder.discovery_recommend_unit_image2);
+        Picasso.with(mContext).load(info3.getCoverLarge()).into(holder.discovery_recommend_unit_image3);
+        return convertView;
+
+    }
+    class ViewHolder{
+        TextView discovery_recommend_item_title;
+        ImageView discovery_recommend_unit_image1;
+        TextView discovery_recommend_unit_title1;
+        ImageView discovery_recommend_unit_image2;
+        TextView discovery_recommend_unit_title2;
+        ImageView discovery_recommend_unit_image3;
+        TextView discovery_recommend_unit_title3;
     }
 }

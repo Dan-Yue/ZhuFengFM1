@@ -59,6 +59,7 @@ public class DiscoveryRecommendFragment extends BaseFragment implements TaskCall
 
     @Override
     public void onTaskFinished(TaskResult result){
+        Log.d(TAG, "onTaskFinished: result"+result);
         if (result != null){
             int state = result.state;
 
@@ -67,12 +68,10 @@ public class DiscoveryRecommendFragment extends BaseFragment implements TaskCall
                 if (data != null) {
                     if(data instanceof JSONObject){
                         JSONObject jsonObject = (JSONObject) data;
-                        Log.d(TAG, "onTaskFinished: "+jsonObject.toString());
-
                         try {
                             JSONObject object = jsonObject.getJSONObject("editorRecommendAlbums");
+                            Log.d(TAG, "onTaskFinished: object "+(object!=null));
                             RecommendAlbums albums = new RecommendAlbums();
-                            //TODO:检查有误
                             albums.parseJson(object);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -82,8 +81,10 @@ public class DiscoveryRecommendFragment extends BaseFragment implements TaskCall
                 }
             }else if (state == 8) {
                 Snackbar.make(getView(),"网络无响应",Snackbar.LENGTH_SHORT).show();
+                Log.d(TAG, "onTaskFinished: 网络无响应");
             }else if (state == 9) {
                 Snackbar.make(getView(),"服务器数据错误",Snackbar.LENGTH_SHORT).show();
+                Log.d(TAG, "onTaskFinished: 服务器数据错误或JSON解析失败");
             }
         }
     }

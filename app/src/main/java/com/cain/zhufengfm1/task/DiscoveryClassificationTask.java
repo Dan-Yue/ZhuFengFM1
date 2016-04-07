@@ -1,5 +1,7 @@
 package com.cain.zhufengfm1.task;
 
+import android.util.Log;
+
 import com.cain.zhufengfm1.client.ClientAPI;
 
 import org.json.JSONException;
@@ -10,6 +12,8 @@ import org.json.JSONObject;
  */
 public class DiscoveryClassificationTask extends BaseTask{
 
+    private static final String TAG = DiscoveryClassificationTask.class.getSimpleName();
+
     public DiscoveryClassificationTask(TaskCallback callback) {
         super(callback);
     }
@@ -18,9 +22,11 @@ public class DiscoveryClassificationTask extends BaseTask{
     protected TaskResult doInBackground(String... strings) {
         TaskResult ret = new TaskResult();
         String str = ClientAPI.getDiscoveryCategories();
+        Log.d(TAG, "doInBackground: str="+(str!=null));
         if (str != null){
             try {
                 ret.data= new JSONObject(str);
+                Log.d(TAG, "doInBackground: ret.data= new JSONObject(str) 执行了");
             } catch (JSONException e) {
                 e.printStackTrace();
                 ret.state =9;//9代表JSON解析失败

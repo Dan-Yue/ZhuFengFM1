@@ -46,12 +46,14 @@ public final class StreamUtil {
             byte[] b = new byte[10<<10];
             int len = 0;
             try {
-                while ((len = is.read(b)) != -1){
+                while(true){
+                    len = is.read(b);
+                    if (len == -1){
+                        break;
+                    }
                     os.write(b,0,len);
-                    os.flush();
                     size += len;
                 }
-                //TODO:循环读写流合并写法可能有错
             } catch (IOException e) {
                 size = -1;
             }
