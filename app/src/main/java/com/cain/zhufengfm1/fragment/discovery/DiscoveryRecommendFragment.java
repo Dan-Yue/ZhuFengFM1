@@ -11,6 +11,7 @@ import android.widget.ListView;
 import com.cain.zhufengfm1.R;
 import com.cain.zhufengfm1.adapter.RecommendAdapter;
 import com.cain.zhufengfm1.fragment.BaseFragment;
+import com.cain.zhufengfm1.model.BoutiqueMenu;
 import com.cain.zhufengfm1.model.DiscoveryRecommendItem;
 import com.cain.zhufengfm1.model.RecommendAlbums;
 import com.cain.zhufengfm1.task.DiscoveryRecommendTask;
@@ -76,7 +77,7 @@ public class DiscoveryRecommendFragment extends BaseFragment implements TaskCall
                             RecommendAlbums albums = new RecommendAlbums();
                             albums.parseJson(object);
                             mItems.add(albums);
-
+                            //热门推荐
                             JSONObject object1 = jsonObject.getJSONObject("hotRecommends");
                             JSONArray array = object1.getJSONArray("list");
                             RecommendAlbums hotalbums;
@@ -87,6 +88,11 @@ public class DiscoveryRecommendFragment extends BaseFragment implements TaskCall
                                 mItems.add(hotalbums);
                             }
 
+                            //精品听单
+                            JSONObject object2 = jsonObject.getJSONObject("specialColumn");
+                            BoutiqueMenu menus = new BoutiqueMenu();
+                                menus.parseJson(object2);
+                                mItems.add(menus);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

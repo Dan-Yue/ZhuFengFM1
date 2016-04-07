@@ -23,7 +23,7 @@ public class RecommendAlbums extends DiscoveryRecommendItem{
     public void parseJson(JSONObject json) throws JSONException {
         if (json != null) {
         super.parseJson(json);
-            JSONArray array = json.getJSONArray("list");
+            JSONArray array = json.optJSONArray("list");
             albums = new LinkedList<>();
             int len = array.length();
             for (int i = 0; i < len; i++) {
