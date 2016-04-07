@@ -17,6 +17,7 @@ import com.cain.zhufengfm1.task.DiscoveryRecommendTask;
 import com.cain.zhufengfm1.task.TaskCallback;
 import com.cain.zhufengfm1.task.TaskResult;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -71,10 +72,21 @@ public class DiscoveryRecommendFragment extends BaseFragment implements TaskCall
                         try {
                             //获取小编推荐
                             JSONObject object = jsonObject.getJSONObject("editorRecommendAlbums");
-                            Log.d(TAG, "onTaskFinished: object " + (object!=null));
+                            Log.d(TAG, "onTaskFinished: object " + (object != null));
                             RecommendAlbums albums = new RecommendAlbums();
                             albums.parseJson(object);
                             mItems.add(albums);
+
+                            JSONObject object1 = jsonObject.getJSONObject("hotRecommends");
+                            JSONArray array = object1.getJSONArray("list");
+                            RecommendAlbums hotalbums;
+                            for (int i = 0; i < array.length(); i++) {
+                                JSONObject obj = array.getJSONObject(i);
+                                hotalbums = new RecommendAlbums();
+                                hotalbums.parseJson(obj);
+                                mItems.add(hotalbums);
+                            }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
