@@ -1,5 +1,7 @@
 package com.cain.zhufengfm1.model;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -9,6 +11,7 @@ import org.json.JSONObject;
 public class RecommendAlbumInfo {
 
 
+    private static final String TAG = RecommendAlbumInfo.class.getSimpleName();
     /**
      * albumId : 344497
      * coverLarge : http://fdfs.xmcdn.com/group6/M02/35/45/wKgDhFTg4w_SDkc9AAT-fXngGBY184_mobile_large.jpg
@@ -42,6 +45,7 @@ public class RecommendAlbumInfo {
             isFinished = json.getInt("isFinished");
             trackId = json.getLong("trackId");
             trackTitle = json.getString("trackTitle");
+            Log.d(TAG, "parseJson: albumId"+albumId+" tackTitle"+trackTitle);
         }
     }
     public long getAlbumId() {

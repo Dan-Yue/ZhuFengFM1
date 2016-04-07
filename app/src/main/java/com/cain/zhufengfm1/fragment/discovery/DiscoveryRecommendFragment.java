@@ -41,6 +41,7 @@ public class DiscoveryRecommendFragment extends BaseFragment implements TaskCall
 
         DiscoveryRecommendTask task = new DiscoveryRecommendTask(this);
         task.execute();
+        Log.d(TAG, "onCreate: DiscoveryRecommend Task 线程开启了");
     }
 
     @Override
@@ -48,7 +49,6 @@ public class DiscoveryRecommendFragment extends BaseFragment implements TaskCall
         View ret = inflater.inflate(R.layout.fragment_discovery_recommend,container,false);
         ListView listView = (ListView) ret.findViewById(R.id.discovery_recommend_listview);
         listView.setAdapter(mAdapter);
-
         return ret;
     }
 
@@ -69,10 +69,12 @@ public class DiscoveryRecommendFragment extends BaseFragment implements TaskCall
                     if(data instanceof JSONObject){
                         JSONObject jsonObject = (JSONObject) data;
                         try {
+                            //获取小编推荐
                             JSONObject object = jsonObject.getJSONObject("editorRecommendAlbums");
-                            Log.d(TAG, "onTaskFinished: object "+(object!=null));
+                            Log.d(TAG, "onTaskFinished: object " + (object!=null));
                             RecommendAlbums albums = new RecommendAlbums();
                             albums.parseJson(object);
+                            mItems.add(albums);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

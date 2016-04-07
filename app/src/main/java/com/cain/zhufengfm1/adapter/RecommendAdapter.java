@@ -26,9 +26,9 @@ public class RecommendAdapter extends BaseAdapter{
     private List<DiscoveryRecommendItem> mItems;
     //TODO:定制推荐适配器
     public RecommendAdapter(Context context, List<DiscoveryRecommendItem> items) {
-        super();
         mContext = context;
         mItems = items;
+        Log.d(TAG, "RecommendAdapter: 执行了");
     }
 
     @Override
@@ -79,10 +79,11 @@ public class RecommendAdapter extends BaseAdapter{
     public View getView(int i, View view, ViewGroup viewGroup) {
         View ret = null;
         DiscoveryRecommendItem item = mItems.get(i);
-        if (item instanceof RecommendAlbums){
+//        if (item instanceof RecommendAlbums){
             //小编推荐的内容
+            Log.d(TAG, "getView: item instanceof RecommendAlbums = true" );
             ret = bindRecommendAlbums(i,view,viewGroup);
-        }
+//        }
         return ret;
     }
     private View bindRecommendAlbums(int position,View convertView,ViewGroup parent){
@@ -104,13 +105,12 @@ public class RecommendAdapter extends BaseAdapter{
 
         Log.d(TAG, "bindRecommendAlbums: holder"+holder);
 
-        DiscoveryRecommendItem item = mItems.get(position);
-        RecommendAlbums albums = new RecommendAlbums();
+        RecommendAlbums albums = (RecommendAlbums) mItems.get(position);
         RecommendAlbumInfo info1 = albums.getAlbums().get(0);
         RecommendAlbumInfo info2 = albums.getAlbums().get(1);
         RecommendAlbumInfo info3 = albums.getAlbums().get(2);
 
-        holder.discovery_recommend_item_title.setText(item.getTitle());
+        holder.discovery_recommend_item_title.setText(albums.getTitle());
         holder.discovery_recommend_unit_title1.setText(info1.getTitle());
         holder.discovery_recommend_unit_title2.setText(info2.getTitle());
         holder.discovery_recommend_unit_title3.setText(info3.getTitle());

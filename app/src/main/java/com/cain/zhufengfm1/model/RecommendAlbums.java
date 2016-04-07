@@ -1,5 +1,7 @@
 package com.cain.zhufengfm1.model;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,6 +13,7 @@ import java.util.List;
  * 小编推荐和听新闻...
  */
 public class RecommendAlbums extends DiscoveryRecommendItem{
+    private static final String TAG = RecommendAlbums.class.getSimpleName();
     private List<RecommendAlbumInfo> albums;
 
     /**
@@ -29,10 +32,12 @@ public class RecommendAlbums extends DiscoveryRecommendItem{
                 info.parseJson(jsonObject);
                 albums.add(info);
             }
+            Log.d(TAG, "parseJson: 用于解析小编推荐和热门推荐的内容");
         }
 
     }
     public List<RecommendAlbumInfo> getAlbums() {
+        Log.d(TAG, "getAlbums: albums"+albums);
         return albums;
     }
 }
