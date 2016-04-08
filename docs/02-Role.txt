@@ -28,13 +28,38 @@ ArrayList<View>[] buffer = new ArrayList<View>[getViewTypeCount];
 有Item需要加载和显示的时候，先检查这个Item的对应的视图类型ViewType
 例如 返回0，代表ListView需要从缓冲区buffer[0]来查找是否右视图
     返回1，ListView就会先去buffer[1]查找视图
+12.ListView 中的Item的点击规则
+ListView Item中，如果有任何可以接受用户输入的控件，
+例如 Button , ImageButton ,EditText,CheckBox等等
+那么ListView自身Item的点击事件回调,onItemClick 就不会在调用了
+长按效果也就没有了;
+因为ListView自身会检查每一个Item的事件传递，如果Item内部包含可以获取焦点的控件，以及可以和用户
+//TODO:笔记
 
 
+事件不处理，就导致没有任何点击效果
+如何实现:Item可以点击，并且内部按钮也可以点击;
+       两种方式：
+       1)在Item的布局中，最顶级标签中 加入
 
+       android:descendantFocusability="blocksDescendants"
+       作用blocksDescendants代表
+       ListView的Item的布局把焦点拦截了
+       即使内部还有可以获取焦点控件，事件也不会传递，
+       直接由Item来处理点击
+       按钮的点击即使没有焦点，因为使用touch触摸事件,
+       能够在没有焦点情况下，直接传递给相应的按钮，依然可以实现点击；
+       2)第二种方式：将Item中，所有可以获取焦点的控件设置属性
+       android:focusable="false"就可以，但是需要设置多个
+       //TODO:笔记
+13.Item中按钮，CheckBox等控件需要进行事件处理的时候
+       因为事件回调接口自身
+       //TODO:笔记
 
-
-
-
+14.建议 异步任务在进行网络请求之前，
+需要检查当前手机是否有网络连接
+1)每次执行异步任务的时候，都需要检查网络连接
+2)
 
 
 
