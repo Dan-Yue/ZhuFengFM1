@@ -5,6 +5,13 @@
               android:orientation="vertical"
              tools:context="com.cain.zhufengfm1.fragment.discovery.DiscoveryRecommendFragment">
 
+    <!-- TODO:测试服务的播放 -->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/service_test_btn"
+        android:text="测试服务的播放"/>
+
 <android.support.v7.widget.ListViewCompat
     android:layout_width="match_parent"
     android:layout_height="match_parent"

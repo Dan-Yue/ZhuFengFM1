@@ -17,7 +17,37 @@ public class ClientAPI {
     //上线的时候就需要使用正式服务器
     public static final String API_POINT = "http://mobile.ximalaya.com/mobile";
     private ClientAPI(){}
+//TODO:调用接口 20
 
+    /**
+     * 调用接口 20
+     * @param albumId
+     * @param trackId
+     * @return
+     */
+    public static String getPlayList(long albumId,long trackId){
+        String ret = null;
+        StringBuilder sb = new StringBuilder(API_POINT);
+
+        // /playlist/album?device=android&albumId=392497&trackId=8060450
+
+        sb.append("/playlist/album");
+        sb.append("?device=android");
+        sb.append("&albumId=").append(albumId);
+        sb.append("&trackId=").append(trackId);
+
+        String url = sb.toString();
+        byte[] data = HttpUtils.doGet(url);
+
+        if (data != null){
+            try {
+                ret = new String(data,"UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+        return  ret;
+    }
     /**
      * 获取发现部分的分类
      * 接口 12

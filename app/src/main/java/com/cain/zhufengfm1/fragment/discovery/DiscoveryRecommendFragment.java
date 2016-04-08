@@ -1,13 +1,16 @@
 package com.cain.zhufengfm1.fragment.discovery;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.Button;
 
+import com.cain.zhufengfm1.AlbumDetailActivity;
+import com.cain.zhufengfm1.Constants;
 import com.cain.zhufengfm1.R;
 import com.cain.zhufengfm1.adapter.RecommendAdapter;
 import com.cain.zhufengfm1.fragment.BaseFragment;
@@ -28,18 +31,20 @@ import java.util.List;
 /**
  * 发现 推荐部分
  */
-public class DiscoveryRecommendFragment extends BaseFragment implements TaskCallback{
+public class DiscoveryRecommendFragment extends BaseFragment implements TaskCallback {
     private static final String TAG = DiscoveryRecommendFragment.class.getSimpleName();
     private RecommendAdapter mAdapter;
     private List<DiscoveryRecommendItem> mItems;
+
     public DiscoveryRecommendFragment() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mItems = new LinkedList<>();
-        mAdapter = new RecommendAdapter(getContext(),mItems);
+        mAdapter = new RecommendAdapter(getContext(), mItems);
 
         DiscoveryRecommendTask task = new DiscoveryRecommendTask(this);
         task.execute();
@@ -48,9 +53,25 @@ public class DiscoveryRecommendFragment extends BaseFragment implements TaskCall
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View ret = inflater.inflate(R.layout.fragment_discovery_recommend,container,false);
-        ListView listView = (ListView) ret.findViewById(R.id.discovery_recommend_listview);
-        listView.setAdapter(mAdapter);
+        View ret = inflater.inflate(R.layout.fragment_discovery_recommend, container, false);
+
+
+        Button btn = (Button) ret.findViewById(R.id.service_test_btn);
+
+        if (btn != null){
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getContext(), AlbumDetailActivity.class);
+                    intent.putExtra(Constants.EXTRA_ALBUM_ID,392497L);
+                    intent.putExtra(Constants.EXTRA_TRACK_ID,8060450L);
+                    startActivity(intent);
+                }
+            });
+        }
+//TODO:测试播放音频
+//        ListView listView = (ListView) ret.findViewById(R.id.discovery_recommend_listview);
+//        listView.setAdapter(mAdapter);
         return ret;
     }
 
@@ -60,15 +81,15 @@ public class DiscoveryRecommendFragment extends BaseFragment implements TaskCall
     }
 
     @Override
-    public void onTaskFinished(TaskResult result){
-        Log.d(TAG, "onTaskFinished: result"+result);
-        if (result != null){
+    public void onTaskFinished(TaskResult result) {
+        Log.d(TAG, "onTaskFinished: result" + result);
+        if (result != null) {
             int state = result.state;
 
-            if (state ==0){
+            if (state == 0) {
                 Object data = result.data;
                 if (data != null) {
-                    if(data instanceof JSONObject){
+                    if (data instanceof JSONObject) {
                         JSONObject jsonObject = (JSONObject) data;
                         try {
                             //获取小编推荐
@@ -91,19 +112,19 @@ public class DiscoveryRecommendFragment extends BaseFragment implements TaskCall
                             //精品听单
                             JSONObject object2 = jsonObject.getJSONObject("specialColumn");
                             BoutiqueMenu menus = new BoutiqueMenu();
-                                menus.parseJson(object2);
-                                mItems.add(menus);
+                            menus.parseJson(object2);
+                            mItems.add(menus);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         mAdapter.notifyDataSetChanged();
                     }
                 }
-            }else if (state == 8) {
-                Snackbar.make(getView(),"网络无响应",Snackbar.LENGTH_SHORT).show();
+            } else if (state == 8) {
+                Snackbar.make(getView(), "网络无响应", Snackbar.LENGTH_SHORT).show();
                 Log.d(TAG, "onTaskFinished: 网络无响应");
-            }else if (state == 9) {
-                Snackbar.make(getView(),"服务器数据错误",Snackbar.LENGTH_SHORT).show();
+            } else if (state == 9) {
+                Snackbar.make(getView(), "服务器数据错误", Snackbar.LENGTH_SHORT).show();
                 Log.d(TAG, "onTaskFinished: 服务器数据错误或JSON解析失败");
             }
         }
