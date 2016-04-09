@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2016. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  ~ Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+  ~ Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+  ~ Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+  ~ Vestibulum commodo. Ut rhoncus gravida arcu.
+  -->
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="#ffffffff">
+    android:background="#ffffffff"
+    android:descendantFocusability="blocksDescendants">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -43,34 +52,36 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:orientation="vertical">
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/discovery_recommend_unit_image1"
+            android:orientation="vertical"
+            android:id="@+id/discovery_recommend_unit1"
+            android:clickable="true"
+            android:onClick="playMusic">
+                <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:scaleType="fitXY"
-                tools:src="@mipmap/ic_launcher"/>
-
-            <TextView
-                android:id="@+id/discovery_recommend_unit_title1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/discovery_recommend_unit_image1"
-                android:background="#55000000"
-                android:textColor="#ffffffff"
-                android:singleLine="true"
-                android:ellipsize="end"
-                tools:text="测试测试测试"/>
-        </RelativeLayout>
-            <TextView
-                android:id="@+id/discovery_recommend_unit_track_title1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="测试测试测试测试测试测试"/>
-        </LinearLayout>
+                android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/discovery_recommend_unit_image1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="150dp"
+                        android:scaleType="fitXY"
+                        tools:src="@mipmap/ic_launcher"/>
+                    <TextView
+                        android:id="@+id/discovery_recommend_unit_title1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/discovery_recommend_unit_image1"
+                        android:background="#55000000"
+                        android:textColor="#ffffffff"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        tools:text="测试测试测试"/>
+                </RelativeLayout>
+                    <TextView
+                        android:id="@+id/discovery_recommend_unit_track_title1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="测试测试测试测试测试测试"/>
+            </LinearLayout>
 
             <LinearLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
@@ -79,7 +90,10 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:clickable="true"
+                android:id="@+id/discovery_recommend_unit2"
+                android:onClick="playMusic">
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -97,8 +111,6 @@
                         android:layout_alignBottom="@id/discovery_recommend_unit_image2"
                         android:background="#55000000"
                         android:textColor="#ffffffff"
-                        android:singleLine="true"
-                        android:ellipsize="end"
                         tools:text="测试测试测试"/>
                 </RelativeLayout>
                 <TextView
@@ -115,7 +127,10 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:clickable="true"
+                android:id="@+id/discovery_recommend_unit3"
+                android:onClick="playMusic">
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -148,10 +163,4 @@
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:background="#eeeeeeee"/>
-    <!--<GridView-->
-    <!--android:id="@+id/show_images"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:columnWidth="3dp"-->
-    <!--android:numColumns="3"/>-->
 </LinearLayout>

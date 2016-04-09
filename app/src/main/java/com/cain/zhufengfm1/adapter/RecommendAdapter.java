@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2016. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 package com.cain.zhufengfm1.adapter;
 
 import android.content.Context;
@@ -149,14 +157,22 @@ public class RecommendAdapter extends BaseAdapter{
             holder.discovery_recommend_unit_image1 = (ImageView) convertView.findViewById(R.id.discovery_recommend_unit_image1);
             holder.discovery_recommend_unit_title1 = (TextView) convertView.findViewById(R.id.discovery_recommend_unit_title1);
             holder.Discovery_recommend_unit_track_title1 = (TextView) convertView.findViewById(R.id.discovery_recommend_unit_track_title1);
+            holder.musicId1 = new long[2];
 
             holder.discovery_recommend_unit_image2 = (ImageView) convertView.findViewById(R.id.discovery_recommend_unit_image2);
             holder.discovery_recommend_unit_title2 = (TextView) convertView.findViewById(R.id.discovery_recommend_unit_title2);
             holder.Discovery_recommend_unit_track_title2 = (TextView) convertView.findViewById(R.id.discovery_recommend_unit_track_title2);
+            holder.musicId2 = new long[2];
 
             holder.discovery_recommend_unit_image3 = (ImageView) convertView.findViewById(R.id.discovery_recommend_unit_image3);
             holder.discovery_recommend_unit_title3 = (TextView) convertView.findViewById(R.id.discovery_recommend_unit_title3);
             holder.Discovery_recommend_unit_track_title3 = (TextView) convertView.findViewById(R.id.discovery_recommend_unit_track_title3);
+            holder.musicId3 = new long[2];
+
+            convertView.findViewById(R.id.discovery_recommend_unit1).setTag(holder);
+            convertView.findViewById(R.id.discovery_recommend_unit2).setTag(holder);
+            convertView.findViewById(R.id.discovery_recommend_unit3).setTag(holder);
+
             convertView.setTag(holder);
         }
         ViewHolder holder = (ViewHolder) convertView.getTag();
@@ -181,6 +197,27 @@ public class RecommendAdapter extends BaseAdapter{
         Picasso.with(mContext).load(info1.getCoverLarge()).into(holder.discovery_recommend_unit_image1);
         Picasso.with(mContext).load(info2.getCoverLarge()).into(holder.discovery_recommend_unit_image2);
         Picasso.with(mContext).load(info3.getCoverLarge()).into(holder.discovery_recommend_unit_image3);
+
+        //绑定音乐id
+        //AlbumId和TrackId的数组便于Tag传递
+        long[] musicId1 = new long[2];
+        musicId1[0] = info1.getAlbumId();
+        musicId1[1] = info1.getTrackId();
+        holder.musicId1 = musicId1;
+        Log.d(TAG, "bindRecommendAlbums: holder.musicId1"+holder.musicId1);
+
+        long[] musicId2 = new long[2];
+        musicId2[0] = info2.getAlbumId();
+        musicId2[1] = info2.getTrackId();
+        holder.musicId2 = musicId2;
+        Log.d(TAG, "bindRecommendAlbums: holder.musicId2"+holder.musicId2);
+
+        long[] musicId3 = new long[2];
+        musicId3[0] = info3.getAlbumId();
+        musicId3[1] = info3.getTrackId();
+        holder.musicId3 = musicId3;
+        Log.d(TAG, "bindRecommendAlbums: holder.musicId3"+holder.musicId3);
+
         return convertView;
 
     }
@@ -188,26 +225,29 @@ public class RecommendAdapter extends BaseAdapter{
     /**
      * 小编推荐和热门推荐的内容
      */
-    class ViewHolder{
+    public class ViewHolder{
         private TextView discovery_recommend_item_title;
 
         private ImageView discovery_recommend_unit_image1;
         private TextView discovery_recommend_unit_title1;
         private TextView Discovery_recommend_unit_track_title1;
+        public long[] musicId1;
 
         private ImageView discovery_recommend_unit_image2;
         private TextView discovery_recommend_unit_title2;
         private TextView Discovery_recommend_unit_track_title2;
+        public long[] musicId2;
 
         private ImageView discovery_recommend_unit_image3;
         private TextView discovery_recommend_unit_title3;
         private TextView Discovery_recommend_unit_track_title3;
+        public long[] musicId3;
     }
 
     /**
      * 精品听单
      */
-    class ViewHolder2{
+    public class ViewHolder2{
         private TextView discovery_recommend_menu_title;
 
         private ImageView discovery_recommend_menu_image1;

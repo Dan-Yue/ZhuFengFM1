@@ -1,16 +1,21 @@
+/*
+ * Copyright (c) 2016. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 package com.cain.zhufengfm1.fragment.discovery;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ListView;
 
-import com.cain.zhufengfm1.AlbumDetailActivity;
-import com.cain.zhufengfm1.Constants;
 import com.cain.zhufengfm1.R;
 import com.cain.zhufengfm1.adapter.RecommendAdapter;
 import com.cain.zhufengfm1.fragment.BaseFragment;
@@ -54,24 +59,8 @@ public class DiscoveryRecommendFragment extends BaseFragment implements TaskCall
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View ret = inflater.inflate(R.layout.fragment_discovery_recommend, container, false);
-
-
-        Button btn = (Button) ret.findViewById(R.id.service_test_btn);
-
-        if (btn != null){
-            btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getContext(), AlbumDetailActivity.class);
-                    intent.putExtra(Constants.EXTRA_ALBUM_ID,392497L);
-                    intent.putExtra(Constants.EXTRA_TRACK_ID,8060450L);
-                    startActivity(intent);
-                }
-            });
-        }
-//TODO:测试播放音频
-//        ListView listView = (ListView) ret.findViewById(R.id.discovery_recommend_listview);
-//        listView.setAdapter(mAdapter);
+        ListView listView = (ListView) ret.findViewById(R.id.discovery_recommend_listview);
+        listView.setAdapter(mAdapter);
         return ret;
     }
 

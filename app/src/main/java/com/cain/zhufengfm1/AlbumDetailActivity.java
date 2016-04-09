@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2016. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 package com.cain.zhufengfm1;
 
 import android.content.Intent;
@@ -22,6 +30,7 @@ public class AlbumDetailActivity extends AppCompatActivity {
         mTrackId = intent.getLongExtra(Constants.EXTRA_TRACK_ID, -1);
 
         //TODO:调用接口
+
 
         //TODO:调用接口 接口17 用于显示界面中的曲目列表,和一部分专辑信息
 
