@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SplashActivity extends AppCompatActivity{
+    private static int index = 0;
     // 到达最后一张
     private static final int TO_THE_END = 0;
     // 离开最后一张
@@ -140,7 +140,7 @@ public class SplashActivity extends AppCompatActivity{
             for(int i=0; i<ids.length; i++)
             {
                 dotView = new ImageView(this);
-                dotView.setImageResource(R.mipmap.zhufeng0_icon);
+                dotView.setImageResource(R.drawable.splash_null_point);
                 dotView.setLayoutParams(new LinearLayout.LayoutParams(
                         ViewGroup.LayoutParams.WRAP_CONTENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
@@ -188,47 +188,31 @@ public class SplashActivity extends AppCompatActivity{
         }
 
         @Override
-        public void destroyItem(View arg0, int arg1, Object arg2) {
-            ((ViewPager) arg0).removeView(views.get(arg1 % views.size()));
-        }
-
-        @Override
-        public void finishUpdate(View arg0) {
-        }
-
-        @Override
         public int getCount() {
-            // 注意这里一定要返回一个稍微大点值,不然滑到顶就滑不动了
-            return views.size()*20;
+            return views.size()*Integer.MAX_VALUE;
         }
 
         @Override
-        public Object instantiateItem(View arg0, int arg1) {
-            Log.e("tag", "instantiateItem = " + arg1);
-            ((ViewPager) arg0).addView(views.get(arg1 % views.size()),0);
-            return views.get(arg1 % views.size());
+        public boolean isViewFromObject(View view, Object object) {
+            return view == object;
         }
 
         @Override
-        public boolean isViewFromObject(View arg0, Object arg1) {
-            return arg0 == (arg1);
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            Log.e("tag", "destroyItem: arg1 = " + position);
+//            container.removeView(views.get(position % views.size()));
         }
 
         @Override
-        public void restoreState(Parcelable arg0, ClassLoader arg1) {
-
+        public Object instantiateItem(ViewGroup container, int position) {
+            Log.e("tag", "instantiateItem: arg1 = " + position);
+            try {
+            container.addView(views.get(position % views.size()), 0);
+            }catch (Exception e){
+                Log.e("tag", "!!!: arg1 = " + position);
+            }
+            return views.get(position % views.size());
         }
-
-        @Override
-        public Parcelable saveState() {
-            return null;
-        }
-
-        @Override
-        public void startUpdate(View arg0) {
-
-        }
-
     }
 
     private void showSharedPreferences() {
@@ -245,6 +229,7 @@ public class SplashActivity extends AppCompatActivity{
 
             startActivity(new Intent(this, MainActivity.class));
         }
+        index = 0;
         finish();
     }
 }

@@ -1,41 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.cain.zhufengfm1.MainActivity">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.cain.zhufengfm1.MainActivity">
 
     <FrameLayout
+        android:id="@+id/main_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/main_fragment_container"/>
+        android:layout_weight="1"/>
+
     <RadioGroup
         android:id="@+id/main_tab_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <RadioButton
             android:id="@+id/main_tab_item_discovery"
             style="@style/MainTabItem"
+            android:checked="true"
             android:text="发现"
-            android:checked="true"/>
+            android:layout_gravity="bottom"/>
+
         <RadioButton
             android:id="@+id/main_tab_item_custom"
             style="@style/MainTabItem"
-            android:text="定制听"/>
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/MainTabItem"/>
+            android:text="定制听"
+            android:layout_gravity="bottom"/>
+
+        <ImageButton
+            android:id="@+id/main_tab_item_btn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@mipmap/ting"/>
+
         <RadioButton
             android:id="@+id/main_tab_item_download"
             style="@style/MainTabItem"
-            android:text="下载听"/>
+            android:text="下载听"
+            android:layout_gravity="bottom"/>
+
         <RadioButton
             android:id="@+id/main_tab_item_personal"
             style="@style/MainTabItem"
-            android:text="我"/>
+            android:text="我"
+            android:layout_gravity="bottom"/>
     </RadioGroup>
 </LinearLayout>
