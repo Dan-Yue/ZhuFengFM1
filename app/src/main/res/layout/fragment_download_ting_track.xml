@@ -10,7 +10,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="com.cain.zhufengfm1.fragment.downloadting.DownloadTingTrackFragment">
+             tools:context=".fragment.downloadting.DownloadTingTracksFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
