@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.cain.zhufengfm1.media.PlayService;
+import com.umeng.analytics.MobclickAgent;
 
 public class AlbumDetailActivity extends AppCompatActivity {
     private long mAlbumId;
@@ -49,5 +50,26 @@ public class AlbumDetailActivity extends AppCompatActivity {
             startService(service);
 
         }
+    }
+
+    //TODO:友盟测试
+
+    public void onResume() {
+
+        super.onResume();
+
+        MobclickAgent.onPageStart("news-detail");
+
+        //友盟的统计分析
+        MobclickAgent.onResume(this);
+    }
+
+    public void onPause() {
+
+        super.onPause();
+
+        MobclickAgent.onPageEnd("new-detail");
+
+        MobclickAgent.onPause(this);
     }
 }

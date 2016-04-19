@@ -27,6 +27,7 @@ import com.cain.zhufengfm1.fragment.DiscoveryFragment;
 import com.cain.zhufengfm1.fragment.DownloadTingFragment;
 import com.cain.zhufengfm1.fragment.PersonalFragment;
 import com.cain.zhufengfm1.media.PlayService;
+import com.umeng.analytics.MobclickAgent;
 
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
@@ -175,6 +176,24 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         intent.putExtra(Constants.EXTRA_ALBUM_ID, musicId[0]);
         intent.putExtra(Constants.EXTRA_TRACK_ID, musicId[1]);
         startActivity(intent);
+    }
+
+    //TODO:友盟测试
+    public void onResume() {
+        super.onResume();
+
+        MobclickAgent.onPageStart("news-detail");
+
+        //友盟的统计分析
+        MobclickAgent.onResume(this);
+    }
+
+    public void onPause() {
+        super.onPause();
+
+        MobclickAgent.onPageEnd("new-detail");
+
+        MobclickAgent.onPause(this);
     }
 }
 

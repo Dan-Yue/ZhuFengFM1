@@ -8,14 +8,16 @@
 
 package com.cain.zhufengfm1;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,10 +27,19 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.example.jpushdemo.ExampleUtil;
+import com.umeng.analytics.MobclickAgent;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class SplashActivity extends AppCompatActivity{
+import cn.jpush.android.api.InstrumentedActivity;
+import cn.jpush.android.api.JPushInterface;
+
+public class SplashActivity extends InstrumentedActivity {
+    public static boolean isForeground = false;
+    //TODO:推送测试
+
     private static int index = 0;
     // 到达最后一张
     private static final int TO_THE_END = 0;
@@ -36,7 +47,7 @@ public class SplashActivity extends AppCompatActivity{
     private static final int LEAVE_FROM_END = 1;
 
     // 如果想直接应用到你的项目中，只需在这里添加删除图片id即可
-    private int[] ids = {R.mipmap.zhufeng01,R.mipmap.zhufeng02,R.mipmap.zhufeng02
+    private int[] ids = {R.mipmap.zhufeng01, R.mipmap.zhufeng02, R.mipmap.zhufeng02
     };
 
     private List<View> guides = new ArrayList<View>();
@@ -46,15 +57,22 @@ public class SplashActivity extends AppCompatActivity{
     private LinearLayout dotContain; // 存储点的容器
     private int offset;              // 位移量
     private int curPos = 0;          // 记录当前的位置
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         init();
+
+        //TODO:推送测试
+
+
+        registerMessageReceiver();  // used for receive msg
+        // 初始化 JPush。如果已经初始化，但没有登录成功，则执行重新登录。
+        JPushInterface.init(getApplicationContext());
     }
 
-    private ImageView buildImageView(int id)
-    {
+    private ImageView buildImageView(int id) {
         ImageView iv = new ImageView(this);
         iv.setImageResource(id);
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
@@ -66,8 +84,7 @@ public class SplashActivity extends AppCompatActivity{
     }
 
     // 功能介绍界面的初始化
-    private void init()
-    {
+    private void init() {
         this.getView();
         initDot();
         ImageView iv = null;
@@ -77,7 +94,7 @@ public class SplashActivity extends AppCompatActivity{
             guides.add(iv);
         }
 
-        System.out.println("guild_size="+guides.size());
+        System.out.println("guild_size=" + guides.size());
 
         // 当curDot的所在的树形层次将要被绘出时此方法被调用
         curDot.getViewTreeObserver().addOnPreDrawListener(
@@ -94,16 +111,15 @@ public class SplashActivity extends AppCompatActivity{
         pager.setAdapter(adapter);
         pager.clearAnimation();
         // 为Viewpager添加事件监听器 OnPageChangeListener
-        pager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+        pager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
-            public void onPageSelected(int position)
-            {
+            public void onPageSelected(int position) {
 
                 int pos = position % ids.length;
 
                 moveCursorTo(pos);
 
-                if (pos == ids.length-1) {// 到最后一张了
+                if (pos == ids.length - 1) {// 到最后一张了
                     handler.sendEmptyMessageDelayed(TO_THE_END, 500);
 
                 } else if (curPos == ids.length - 1) {
@@ -113,23 +129,19 @@ public class SplashActivity extends AppCompatActivity{
                 super.onPageSelected(position);
             }
         });
-
     }
 
     /**
-     *  在layout中实例化一些View
+     * 在layout中实例化一些View
      */
-    private void getView()
-    {
-        dotContain = (LinearLayout)this.findViewById(R.id.dot_contain);
+    private void getView() {
+        dotContain = (LinearLayout) this.findViewById(R.id.dot_contain);
         pager = (ViewPager) findViewById(R.id.contentPager);
         curDot = (ImageView) findViewById(R.id.cur_dot);
         start = (ImageView) findViewById(R.id.open);
-        start.setOnClickListener(new View.OnClickListener()
-        {
+        start.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 // 点击体验
                 showSharedPreferences();
             }
@@ -138,15 +150,14 @@ public class SplashActivity extends AppCompatActivity{
 
     /**
      * 初始化点 ImageVIew
+     *
      * @return 返回true说明初始化点成功，否则实例化失败
      */
-    private boolean initDot()
-    {
+    private boolean initDot() {
 
-        if(ids.length > 0){
-            ImageView dotView ;
-            for(int i=0; i<ids.length; i++)
-            {
+        if (ids.length > 0) {
+            ImageView dotView;
+            for (int i = 0; i < ids.length; i++) {
                 dotView = new ImageView(this);
                 dotView.setImageResource(R.drawable.splash_null_point);
                 dotView.setLayoutParams(new LinearLayout.LayoutParams(
@@ -156,20 +167,20 @@ public class SplashActivity extends AppCompatActivity{
                 dotContain.addView(dotView);
             }
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
     /**
      * 移动指针到相邻的位置 动画
-     * @param position
-     * 指针的索引值
-     * */
+     *
+     * @param position 指针的索引值
+     */
     private void moveCursorTo(int position) {
         AnimationSet animationSet = new AnimationSet(true);
         TranslateAnimation tAnim =
-                new TranslateAnimation(offset*curPos, offset*position, 0, 0);
+                new TranslateAnimation(offset * curPos, offset * position, 0, 0);
         animationSet.addAnimation(tAnim);
         animationSet.setDuration(300);
         animationSet.setFillAfter(true);
@@ -191,13 +202,13 @@ public class SplashActivity extends AppCompatActivity{
 
         private List<View> views;
 
-        public SplashAdapter(List<View> views){
-            this.views=views;
+        public SplashAdapter(List<View> views) {
+            this.views = views;
         }
 
         @Override
         public int getCount() {
-            return views.size()*Integer.MAX_VALUE;
+            return views.size() * Integer.MAX_VALUE;
         }
 
         @Override
@@ -215,8 +226,8 @@ public class SplashActivity extends AppCompatActivity{
         public Object instantiateItem(ViewGroup container, int position) {
             Log.e("tag", "instantiateItem: arg1 = " + position);
             try {
-            container.addView(views.get(position % views.size()), 0);
-            }catch (Exception e){
+                container.addView(views.get(position % views.size()), 0);
+            } catch (Exception e) {
                 Log.e("tag", "!!!: arg1 = " + position);
             }
             return views.get(position % views.size());
@@ -239,6 +250,68 @@ public class SplashActivity extends AppCompatActivity{
         }
         index = 0;
         finish();
+    }
+
+    //TODO:推送测试
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(mMessageReceiver);
+        super.onDestroy();
+    }
+
+    //for receive customer msg from jpush server
+    private MessageReceiver mMessageReceiver;
+    public static final String MESSAGE_RECEIVED_ACTION = "com.example.jpushdemo.MESSAGE_RECEIVED_ACTION";
+    public static final String KEY_TITLE = "title";
+    public static final String KEY_MESSAGE = "message";
+    public static final String KEY_EXTRAS = "extras";
+
+    public void registerMessageReceiver() {
+        mMessageReceiver = new MessageReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
+        filter.addAction(MESSAGE_RECEIVED_ACTION);
+        registerReceiver(mMessageReceiver, filter);
+    }
+
+    public class MessageReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
+                String messge = intent.getStringExtra(KEY_MESSAGE);
+                String extras = intent.getStringExtra(KEY_EXTRAS);
+                StringBuilder showMsg = new StringBuilder();
+                showMsg.append(KEY_MESSAGE + " : " + messge + "\n");
+                if (!ExampleUtil.isEmpty(extras)) {
+                    showMsg.append(KEY_EXTRAS + " : " + extras + "\n");
+                }
+            }
+        }
+    }
+
+    //TODO:友盟测试
+
+    public void onResume() {
+        isForeground = true;
+
+        super.onResume();
+
+        MobclickAgent.onPageStart("news-detail");
+
+        //友盟的统计分析
+        MobclickAgent.onResume(this);
+    }
+
+    public void onPause() {
+        isForeground = false;
+
+        super.onPause();
+
+        MobclickAgent.onPageEnd("new-detail");
+
+        MobclickAgent.onPause(this);
     }
 }
 
